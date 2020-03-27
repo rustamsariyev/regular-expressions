@@ -1,0 +1,101 @@
+awk '{print NF, $0}' dukeofyork.txt # Print number of fields 
+awk '{print $0}' dukeofyork.txt # Print all line and fields
+awk '/up/{print NF, $0}' dukeofyork.txt  # Print only include the "UP" word . up -here regular expressions. First part regular expression second part in action
+awk 'NF==6{print NF, $0}' dukeofyork.txt  # In this case, it prints only those lines that have exactly six fields.
+awk 'NF==6' dukeofyork.txt  # Only regex part
+awk '/up/{print "UP:" NF, $0 } /down/{print "DOWN: ", NF, $0}' dukeofyork.txt
+awk -f swap names.txt # -f flag (indicate file) 
+awk -F , '{print $2} names.txt # -F option field separator
+awk -F t '{print $2}'  # -t option indicate tab option
+{ awk -v hi=HELLO '{print $1, hi}'
+hello awk
+hello HELLO
+nice to meet you
+nice HELLO}
+
+awk '{print "("NF")" , $0 }' names.txt # $0 is the entire record, and NF wrapped in parentheses will add the number of fields surrounded within parentheses.
+{awk -F '[,!]' '{print $2}'
+one!two,dsfd
+two}
+
+{awk '{FS="," ; print $2}'
+one.,two,three
+
+four,five,six
+five
+}    # Start printing seconf line
+
+{awk 'BEGIN{FS=","} {print $2}'
+one.,two,six
+two
+fource,five,six
+five }  # Start printing beginnings of the line 
+
+#RS=record separator, FS=fields separator
+
+{
+    [vagrant@localhost Exercise Files]$ cat onebigline.txt 
+one,two,three!four,five,six!seven,eight,nine!ten,eleven,twelve[vagrant@localhost Exercise Files]$
+[vagrant@localhost Exercise Files]$ awk 'BEGIN{RS="!" ; FS="," } {print $2}' on 
+ebigline.txt 
+two
+five
+eight
+eleven
+[vagrant@localhost Exercise Files]$ 
+}
+
+# \n -new lone character 
+{
+    awk 'BEGIN{RS="";FS="\n"} {name=$1;address=
+$2;citystatezip=$3;print name "," address "," citystatezip}' multiaddress.txt 
+Gladys Rim,322 New Horizon Blvd,Milwaukee, WI 53207  
+Yuki Whobrey,1 State Route 27,Taylor, MI 48180       
+Fletcher Flosi,394 Manchester Blvd,Rockford, IL 61109
+Bette Nicka,6 S 33rd St,Aston, PA 19014
+Veronika Inouye,6 Greenleaf Ave,San Jose, CA 95111   
+Willard Kolmetz,618 W Yakima Ave,Irving, TX 75062    
+}
+# Output record separator are specified by the special values OFS and ORS
+# OFS- output field separator # ORS - output record separator
+
+#
+{
+  awk 'BEGIN{OFS=", ";ORS="!"} {print $2, $1}
+' names.txt 
+Galloway, Gretchen!Steele, Isaac!Myers, Wayne!Lee, Lillith!Blackwell, Molly!Arnold, Maia!Reese, Lev!Guthrie, Carlos!Buck, Sophia!Mitchell, Vincent!Harris, Buffy!Miles, Reuben!Fowler, Brendan!Hancock, Mason!Boone, Nigel!Foreman, Gretchen!Goodman, Serena!Velez, Shoshana!Hughes, Eve
+}
+
+# RS, FR, ORS, OFS which control field and record separators. Builting variables
+# NF = Number of fields on the line.
+# NR = Record Number
+awk '{print NR, $0}' nameemailavg.csv # Record Number
+awk '{print NF, $0}' nameemailavg.csv #Number of fields on the line.
+awk '{print NR, FILENAME, FNR, $0}' dukeofyork.txt names.txt # 
+awk '{print $NF}' dukeofyork.txt # Print last fields
+awk '{print $(NF-1)}' dukeofyork.txt  # Next lst fields
+awk '{$11="ELEVEN";print NF, $0}' dukeofyork.txt 
+
+ {awk '{a=$1; A=$2; print a,A}'   # variables
+one two
+one two
+ }
+
+{awk '{a=1;b=3; print a + b}'
+
+4
+ }
+
+{
+awk '{a=1;b=3; print a  b}'
+
+13    
+}
+
+{
+awk '{a[1]=$1; a[2]=$2; a[3]=$3; print a[1], a[2], a[3]}'
+one two three
+one two three    
+}
+
+FNR is the record index within the file and will have 4 matches in 4 files. NR is the global record index and will have a single match across all files.
