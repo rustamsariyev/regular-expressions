@@ -1,0 +1,1 @@
+ifconfig eth0 | grep -E "inet | ether " | sed 's/inet/IP/g ; s/ether/MAC/g'  | awk '{print $1,$2}' | sed 's/://g ; s/[a-z]/\U&/g'
