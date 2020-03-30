@@ -1,1 +1,15 @@
 ifconfig eth0 | grep -E "inet | ether " | sed 's/inet/IP/g ; s/ether/MAC/g'  | awk '{print $1,$2}' | sed 's/://g ; s/[a-z]/\U&/g'
+root@ubnt18:~# ifconfig enp0s3
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.50.3.3  netmask 255.255.255.0  broadcast 10.50.3.255
+        inet6 fe80::a00:27ff:fe58:30c5  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:58:30:c5  txqueuelen 1000  (Ethernet)
+        RX packets 3303  bytes 282675 (282.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2724  bytes 272195 (272.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+root@ubnt18:~# ifconfig enp0s3 | grep -E "inet | ether" | sed 's/inet/IP/g ; s/ether/MAC/g' | awk '{print $1,$2}' | sed 's/://g ; s/[a-z]/\U&/g ; s/IP/IP:/ ; s/MAC/MAC:/'
+IP: 10.50.3.3
+MAC: 0800275830C5
+root@ubnt18:~#
